@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/icons">
+        <!-- qrc 与素材同目录：<file> 路径相对本文件，URL = /icons/文件名 -->
+        <file>app.svg</file>
+        <file>app_dark.svg</file>
+        <file>info.svg</file>
+        <file>info_dark.svg</file>
+        <file>warning.svg</file>
+        <file>warning_dark.svg</file>
+        <file>settings.svg</file>
+        <file>settings_dark.svg</file>
+        <file>refresh.svg</file>
+        <file>refresh_dark.svg</file>
+        <file>bluetooth.svg</file>
+        <file>bluetooth_dark.svg</file>
+        <file>serial.svg</file>
+        <file>serial_dark.svg</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,14 @@
+// ============================================================
+// Version.h.in —— Version.h 的"模板"
+// 本文件不会直接被编译，CMake 在构建时用 configure_file
+// 把 @占位符@ 替换成顶层 CMakeLists 里的值，生成 Version.h：
+//   @PROJECT_NAME@    → QtKit（来自 project()）
+//   @PROJECT_VERSION@ → 0.1.0（来自 project()）
+//   @QTKIT_ORG_NAME@  → QtKit（来自 core/CMakeLists.txt）
+// 生成的 Version.h 在 build/src/core/ 目录下，不要手动修改。
+// ============================================================
+#pragma once
+
+#define QTKIT_ORG_NAME   "@QTKIT_ORG_NAME@"
+#define QTKIT_APP_NAME   "@PROJECT_NAME@"
+#define QTKIT_VERSION    "@PROJECT_VERSION@"

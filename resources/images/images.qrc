@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/images">
+        <!-- qrc 与素材同目录：URL = /images/文件名 -->
+        <file>iris_logo.png</file>
+    </qresource>
+</RCC>

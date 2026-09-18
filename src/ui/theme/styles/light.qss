@@ -1,0 +1,115 @@
+/* ============================================================
+ * 浅色主题
+ * QSS 语法 = CSS 的子集：selector { 属性: 值; }
+ * 目标选择器都限定具体控件类型，避免用 * 全局选择（会误伤子控件）
+ * ============================================================ */
+
+QMainWindow, QDialog {
+    background-color: #f5f5f5;
+}
+
+/* 弹窗头部条：演示 ID 选择器（#objectName 精确锁定一个控件） */
+QWidget#appDialogHeader {
+    background-color: #e8edf5;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+QMenuBar {
+    background-color: #ffffff;
+    color: #222222;
+}
+QMenuBar::item:selected {
+    background-color: #e0e0e0;
+}
+
+QMenu {
+    background-color: #ffffff;
+    color: #222222;
+    border: 1px solid #d0d0d0;
+}
+QMenu::item:selected {
+    background-color: #d6e4ff;
+}
+
+QStatusBar {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+/* 侧边导航栏：QWidget#navBar 是组件里 setObjectName 的容器 */
+QWidget#navBar {
+    background-color: #f0f0f0;
+}
+/* 导航项：:checked 伪状态 = 当前选中页（与 NavBar 的 checkable 联动） */
+QToolButton#navItem {
+    border: none;
+    border-radius: 6px;
+    border-left: 3px solid transparent;
+    background: transparent;
+}
+QToolButton#navItem:hover {
+    background-color: #e0e0e0;
+}
+QToolButton#navItem:checked {
+    background-color: #d6e4ff;
+    border-left: 3px solid #2f6fdc; /* 左侧强调条 */
+}
+
+QLabel {
+    background: transparent;
+    color: #222222;
+}
+
+QPushButton {
+    background-color: #ffffff;
+    color: #222222;
+    border: 1px solid #c8c8c8;
+    border-radius: 4px;
+    padding: 4px 14px;
+}
+QPushButton:hover {
+    background-color: #eef3fb;
+}
+QPushButton:pressed {
+    background-color: #d8e2f0;
+}
+
+/* ---------- AppButton 变体：动态属性选择器 ----------
+ * [variant="Primary"]：精确匹配 C++ 里 setProperty("variant", "Primary") 的按钮。
+ * 同一种 变体 在 light/dark 两套样式里颜色不同 —— 这就是"换主题零代码"的原理。 */
+
+QPushButton[variant="Primary"] {
+    background-color: #2f6fdc;
+    color: #ffffff;
+    border: none;
+}
+QPushButton[variant="Primary"]:hover {
+    background-color: #3f7fea;
+}
+QPushButton[variant="Primary"]:pressed {
+    background-color: #285fbd;
+}
+
+QPushButton[variant="Danger"] {
+    background-color: #d9534f;
+    color: #ffffff;
+    border: none;
+}
+QPushButton[variant="Danger"]:hover {
+    background-color: #df5f5b;
+}
+QPushButton[variant="Danger"]:pressed {
+    background-color: #c94b47;
+}
+
+QPushButton[variant="Secondary"] {
+    background-color: transparent;
+    color: #2f6fdc;
+    border: 1px solid #9db8e8;
+}
+QPushButton[variant="Secondary"]:hover {
+    background-color: #eef3fb;
+}
+QPushButton[variant="Secondary"]:pressed {
+    background-color: #dfe8f6;
+}

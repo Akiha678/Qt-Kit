@@ -1,0 +1,14 @@
+# ---------- 构建产物 ----------
+build/
+cmake-build-*/
+out/
+
+# ---------- IDE / 编辑器 ----------
+.vs/
+.vscode/
+*.user
+*.suo
+
+# ---------- Qt Creator ----------
+*.pro.user
+*.pro.user.*
