@@ -26,7 +26,7 @@ Qt-Kit/
 │   │   ├── icons/        #   图标/图片统一入口（AppIcons 图标 + AppImages 大图）
 │   │   └── theme/        #   主题模块：ThemeManager + light/dark.qss
 │   ├── modules/          # 【业务模块库】
-│   │   ├── ble/          #   蓝牙连接模块（BleConnectWidget）
+│   │   ├── ble/          #   蓝牙连接模块：BleManager(逻辑) + BleConnectWidget(界面)
 │   │   └── serial/       #   串口连接模块（SerialConnectWidget）
 │   └── tests/            # 【单元测试】预留（Qt Test）
 └── .gitignore
@@ -52,7 +52,9 @@ build\src\app\Debug\QtKit.exe
 构建时 `configure_file` 自动生成 `Version.h`（`QTKIT_APP_NAME` / `QTKIT_VERSION`）。
 
 ## 下一步规划（逐个添加）
+- [x] modules/ble 蓝牙连接（扫描/连接/服务发现）
+- [ ] BLE 特征读写与通知订阅
 - [ ] core/logger 日志系统（文件 + 界面面板）
 - [ ] core/config 配置持久化（QSettings）
-- [ ] modules 第一个业务模块（如串口）
-- [ ] tests 第一个单元测试
+- [ ] modules/serial 串口连接（QSerialPort）
+- [ ] tests 正式 QTest 单元测试

@@ -30,8 +30,6 @@ void AppButton::setVariant(Variant variant)
 
 void AppButton::applyVariant(Variant variant)
 {
-    // 1. 枚举名（"Primary"/"Danger"/...）写入动态属性，
-    //    QSS 的 [variant="Primary"] 选择器据此生效
     const QMetaEnum me = QMetaEnum::fromType<Variant>();
     const QString key = QString::fromLatin1(me.valueToKey(static_cast<int>(variant)));
 
@@ -40,9 +38,6 @@ void AppButton::applyVariant(Variant variant)
 
     setProperty("variant", key);
 
-    // 2. 关键一步（repolish）：动态属性是运行时才出现的，
-    //    样式系统不会自动感知，必须手动"卸妆→化妆"让它重算 QSS。
-    //    漏掉这步：改了属性但界面不变（踩坑高频点）
     style()->unpolish(this);
     style()->polish(this);
     update();
