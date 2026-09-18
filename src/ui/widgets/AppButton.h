@@ -24,6 +24,13 @@ public:
     Variant variant() const;
     void setVariant(Variant variant); // 运行时可改（会触发 repolish 重算样式）
 
+    // 紧凑模式：用于表格行、工具栏等空间小的场景
+    // （更矮、字号更小；默认普通尺寸）
+    void setCompact(bool compact = true);
+
 private:
     void applyVariant(Variant variant);
+    void applyCompact(bool compact);
+
+    bool m_compact = false;
 };

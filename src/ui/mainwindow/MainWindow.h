@@ -21,11 +21,7 @@ public:
     int addPage(const QIcon &icon, const QString &title, QWidget *page);
 
 private:
-    void buildNavigation();    // 组装 NavBar + QStackedWidget
-    void createMenus();        // 菜单栏
-    void createViewMenu();     // "视图"菜单：主题切换演示
-    void createToolsMenu();    // "工具"菜单：弹窗组件演示
-    void createStatusBar();    // 状态栏
+    void buildNavigation();
 
     NavBar *m_navBar = nullptr;
     QStackedWidget *m_pages = nullptr;
