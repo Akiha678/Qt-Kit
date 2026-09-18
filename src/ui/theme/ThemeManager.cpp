@@ -7,6 +7,7 @@
 #include <QApplication>
 #include <QDebug>
 #include <QFile>
+#include <QResource>
 
 ThemeManager::ThemeManager(QObject *parent)
     : QObject(parent)
@@ -15,6 +16,8 @@ ThemeManager::ThemeManager(QObject *parent)
 
 ThemeManager &ThemeManager::instance()
 {
+    Q_INIT_RESOURCE(theme);
+
     // 函数内静态局部变量：C++11 起保证只初始化一次、且线程安全
     static ThemeManager mgr;
     return mgr;

@@ -6,7 +6,7 @@
 
 namespace
 {
-    // 与 resources/images.qrc 的 prefix="/images" 对应
+    // Logo使用
     const QString kLogoPath = QStringLiteral(":/images/iris_logo.png");
 }
 

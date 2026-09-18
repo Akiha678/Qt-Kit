@@ -1,8 +1,5 @@
 # ============================================================
 # src/modules/ble/CMakeLists.txt —— 蓝牙连接模块
-# 骨架阶段只有页面 Widget；后续在此加入：
-#   BleManager（扫描/连接/收发，纯逻辑，便于单测）
-#   BleConnectWidget 里 connect 到 BleManager 的信号
 # ============================================================
 
 add_library(ble STATIC

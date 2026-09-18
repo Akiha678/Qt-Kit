@@ -12,20 +12,18 @@
 
 namespace
 {
-    // 资源根：与 resources/icons/icons.qrc 的 prefix="/icons" 对应。
-    // 注意：资源 URL 必须带扩展名（:/icons/bluetooth.svg），
-    //        QFile::exists 不会帮你补全。
     const QString kIconRoot = QStringLiteral(":/icons/");
 }
 
 QString AppIcons::path(const QString &name)
 {
-    // 深色主题优先用 name_dark 变体；不存在则回退常规图标
+    // 深色主题时调用深色图标
     if (ThemeManager::instance().currentTheme() == Theme::Dark) {
         const QString dark = kIconRoot + name + QStringLiteral("_dark.svg");
         if (QFile::exists(dark))
             return dark;
     }
+    // 不存在深色图标时，使用默认图标
     return kIconRoot + name + QStringLiteral(".svg");
 }
 
@@ -35,9 +33,10 @@ QIcon AppIcons::get(const QString &name)
     return QFile::exists(p) ? QIcon(p) : fallbackIcon();
 }
 
+// 占位图，图片加载失败时，调用此图
 QIcon AppIcons::fallbackIcon()
 {
-    // 占位图懒生成一次，之后复用（不每帧重画）
+    // 占位图懒生成一次，之后复用
     static QIcon icon;
     if (icon.isNull()) {
         QPixmap pm(24, 24);

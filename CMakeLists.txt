@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 project(QtKit
-    VERSION 0.1.0   # 应用版本
+    VERSION 1.0.0   # 应用版本
     LANGUAGES CXX
 )
 
