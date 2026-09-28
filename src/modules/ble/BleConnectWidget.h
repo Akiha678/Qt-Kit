@@ -9,6 +9,7 @@
 // ============================================================
 #pragma once
 
+#include <QMap>
 #include <QWidget>
 
 class BleManager;
@@ -29,6 +30,7 @@ private slots:
 
 private:
     // 列表操作
+    void updateOrAddDevice(const QString &name, const QString &address, qint16 rssi);
     void appendDeviceRow(const QString &name, const QString &address, qint16 rssi);
     void connectRow(int row); // 该行按钮：未连接→连接；已连接(本行)→断开
     void setAllRowButtonsEnabled(bool enabled);
@@ -43,6 +45,7 @@ private:
     AppButton *m_scanButton = nullptr;
     QTableWidget *m_deviceTable = nullptr;
     QList<AppButton *> m_rowButtons; // 每行一个操作按钮，便于批量启停
+    QMap<QString, int> m_addressToRow; // MAC地址到行号的映射，用于广播包去重更新
 
     // 设备信息面板控件
     QLabel *m_nameValue = nullptr;

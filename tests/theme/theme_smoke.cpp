@@ -7,6 +7,7 @@
 // ============================================================
 
 #include <QApplication>
+#include <QDir>
 #include <QFile>
 #include <QTextStream>
 #include <theme/Theme.h>
@@ -16,19 +17,30 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    QFile out(QStringLiteral("C:/Users/ainstec/Desktop/Project/Qt-Kit/probe_result.txt"));
+    // 使用当前执行目录输出诊断结果，避免硬编码开发者本机绝对路径
+    const QString outPath = QDir::current().filePath(QStringLiteral("probe_result.txt"));
+    QFile out(outPath);
     out.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream s(&out);
 
-    s << "[1] dark.qss exists : " << QFile::exists(QStringLiteral(":/theme/styles/dark.qss")) << "\n";
-    s << "[2] light.qss exists: " << QFile::exists(QStringLiteral(":/theme/styles/light.qss")) << "\n";
+    const bool darkExists = QFile::exists(QStringLiteral(":/theme/styles/dark.qss"));
+    const bool lightExists = QFile::exists(QStringLiteral(":/theme/styles/light.qss"));
+    s << "[1] dark.qss exists : " << darkExists << "\n";
+    s << "[2] light.qss exists: " << lightExists << "\n";
 
     ThemeManager::instance().applyTheme(Theme::Dark);
 
+    const bool hasSize = app.styleSheet().size() > 0;
+    const bool hasDarkBg = app.styleSheet().contains(QStringLiteral("#2b2b2b"));
     s << "[3] styleSheet size : " << app.styleSheet().size() << "\n";
-    s << "[4] has dark bg    : " << app.styleSheet().contains(QStringLiteral("#2b2b2b")) << "\n";
+    s << "[4] has dark bg    : " << hasDarkBg << "\n";
     s.flush();
     out.close();
+
+    // 检查核心断言，若失败返回非0退出码
+    if (!darkExists || !lightExists || !hasSize || !hasDarkBg) {
+        return 1;
+    }
 
     return 0;
 }

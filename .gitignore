@@ -2,6 +2,8 @@
 build/
 cmake-build-*/
 out/
+*_probe_result.txt
+*probe_result.txt
 
 # ---------- IDE / 编辑器 ----------
 .vs/

@@ -41,9 +41,11 @@ Qt-Kit/
 
 ### 命令行
 ```bat
-cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_PREFIX_PATH=D:/Qt/5.14.2/msvc2017_64
+# 本机已安装 VS2017 + Qt 5.14.2 MSVC2017 64bit：
+cmake -S . -B build -G "Visual Studio 15 2017" -A x64 -DCMAKE_PREFIX_PATH=D:/Qt/5.14.2/msvc2017_64
 cmake --build build --config Debug --parallel
 build\src\app\Debug\QtKit.exe
+# 若在装有 VS 2022 的环境，可替换为 -G "Visual Studio 17 2022" -A x64
 ```
 
 ## 版本号维护

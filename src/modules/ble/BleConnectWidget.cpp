@@ -109,7 +109,7 @@ BleConnectWidget::BleConnectWidget(QWidget *parent)
     // ================= 接线：BleManager 信号 → 界面 =================
     connect(m_manager, &BleManager::deviceDiscovered, this,
             [this](const QString &name, const QString &address, qint16 rssi) {
-                appendDeviceRow(name, address, rssi);
+                updateOrAddDevice(name, address, rssi);
                 setStatus(tr("扫描中… 发现 %1 个设备").arg(m_deviceTable->rowCount()));
             });
     connect(m_manager, &BleManager::scanFinished, this, [this]() {
@@ -168,6 +168,7 @@ void BleConnectWidget::onScanClicked()
 
     m_deviceTable->setRowCount(0); // 清空旧列表（行按钮随行删除）
     m_rowButtons.clear();
+    m_addressToRow.clear();
     m_connectedRow = -1;
     m_manager->startScan();
     m_scanButton->setText(tr("停止扫描"));
@@ -176,10 +177,32 @@ void BleConnectWidget::onScanClicked()
 
 // ---------- 列表 ----------
 
+void BleConnectWidget::updateOrAddDevice(const QString &name, const QString &address, qint16 rssi)
+{
+    // 如果该 MAC 已在表格中，只刷新 RSSI 与名称（避免广播包刷屏导致重复入表）
+    if (m_addressToRow.contains(address)) {
+        const int row = m_addressToRow.value(address);
+        if (auto *rssiItem = m_deviceTable->item(row, kColRssi)) {
+            rssiItem->setText(tr("%1 dBm").arg(rssi));
+            rssiItem->setData(kRssiRole, rssi);
+        }
+        if (auto *nameItem = m_deviceTable->item(row, kColName)) {
+            if ((nameItem->text().isEmpty() || nameItem->text() == tr("(未知设备)"))
+                && !name.isEmpty() && name != tr("(未知设备)")) {
+                nameItem->setText(name);
+            }
+        }
+        return;
+    }
+
+    appendDeviceRow(name, address, rssi);
+}
+
 void BleConnectWidget::appendDeviceRow(const QString &name, const QString &address, qint16 rssi)
 {
     const int row = m_deviceTable->rowCount();
     m_deviceTable->insertRow(row);
+    m_addressToRow.insert(address, row);
 
     auto *nameItem = new QTableWidgetItem(name);
     auto *macItem = new QTableWidgetItem(address);
@@ -195,7 +218,12 @@ void BleConnectWidget::appendDeviceRow(const QString &name, const QString &addre
     auto *button = new AppButton(tr("连接"), AppButton::Variant::Secondary, m_deviceTable);
     button->setCompact(true);
     button->setFixedSize(80, 28);
-    connect(button, &AppButton::clicked, this, [this, row]() { connectRow(row); });
+    // 动态查找按钮所在行，避免按值捕获过期行索引
+    connect(button, &AppButton::clicked, this, [this, button]() {
+        const int targetRow = m_rowButtons.indexOf(button);
+        if (targetRow >= 0)
+            connectRow(targetRow);
+    });
     m_deviceTable->setCellWidget(row, kColAction, button);
     m_rowButtons.append(button);
 

@@ -13,4 +13,5 @@ target_link_libraries(QtKit PRIVATE
     core     # 核心模块
     ble      # 蓝牙连接模块
     serial   # 串口连接模块
+    wifi
 )

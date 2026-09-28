@@ -15,5 +15,7 @@
         <file>bluetooth_dark.svg</file>
         <file>serial.svg</file>
         <file>serial_dark.svg</file>
+        <file>wifi.svg</file>
+        <file>wifi_dark.svg</file>
     </qresource>
 </RCC>

@@ -8,6 +8,7 @@
 // ============================================================
 
 #include <QCoreApplication>
+#include <QDir>
 #include <QFile>
 #include <QTextStream>
 #include <QTimer>
@@ -18,7 +19,9 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
 
-    QFile out(QStringLiteral("C:/Users/ainstec/Desktop/Project/Qt-Kit/ble_probe_result.txt"));
+    // 使用当前执行目录输出诊断结果，避免硬编码开发者本机绝对路径
+    const QString outPath = QDir::current().filePath(QStringLiteral("ble_probe_result.txt"));
+    QFile out(outPath);
     out.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream s(&out);
 

@@ -4,23 +4,10 @@
 
 #include "MainWindow.h"
 
-#include <QActionGroup>
-#include <QDialogButtonBox>
 #include <QHBoxLayout>
-#include <QLabel>
-#include <QMenuBar>
-#include <QMessageBox>
-#include <QPushButton>
 #include <QStackedWidget>
-#include <QStatusBar>
-#include <QVBoxLayout>
 #include <Version.h>
-#include <dialogs/AppDialog.h>
-#include <icons/AppIcons.h>
 #include <icons/AppImages.h>
-#include <theme/Theme.h>
-#include <theme/ThemeManager.h>
-#include <widgets/AppButton.h>
 #include <widgets/NavBar.h>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -53,6 +40,13 @@ void MainWindow::buildNavigation()
     // 点击图标导航跳转
     connect(m_navBar, &NavBar::currentChanged,
             m_pages, &QStackedWidget::setCurrentIndex);
+}
+
+int MainWindow::addPage(const QString &iconName, const QString &title, QWidget *page)
+{
+    const int index = m_pages->addWidget(page);
+    m_navBar->addItem(iconName, title);
+    return index;
 }
 
 int MainWindow::addPage(const QIcon &icon, const QString &title, QWidget *page)

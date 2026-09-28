@@ -15,9 +15,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-
-    // 添加一个导航页：图标 + 悬停提示 + 页面控件（所有权转移给本窗口）。
-    // 返回页索引（从 0 开始，与导航项一一对应）
+    int addPage(const QString &iconName, const QString &title, QWidget *page);
     int addPage(const QIcon &icon, const QString &title, QWidget *page);
 
 private:

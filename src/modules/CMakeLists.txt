@@ -11,9 +11,11 @@
 
 add_subdirectory(ble)
 add_subdirectory(serial)
+add_subdirectory(wifi)
 
 # 模块头文件统一暴露（include 根 = modules/ 目录）：
 # 上层以 #include <ble/BleConnectWidget.h> 的形式引用，
 # 与 ui 库的 <mainwindow/...>、<widgets/...> 风格保持一致。
 target_include_directories(ble    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(serial PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(wifi PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
